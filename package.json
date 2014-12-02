@@ -1,6 +1,6 @@
 {
   "name": "fashion-show",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Automatically enforce and run consistent lint files across projects.",
   "main": "index.js",
   "scripts": {
