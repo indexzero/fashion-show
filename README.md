@@ -1,6 +1,6 @@
 # fashion-show
 
-Automatically enforce and run consistent lint files across projects.
+Build consistent and versioned styleguides by including and running consistent lint files across projects.
 
 ## Motivation
 

@@ -1,7 +1,7 @@
 {
   "name": "fashion-show",
   "version": "1.0.1",
-  "description": "Automatically enforce and run consistent lint files across projects.",
+  "description": "Build consistent and versioned styleguides by including and running consistent lint files across projects.",
   "main": "index.js",
   "scripts": {
     "pretest": "./node_modules/.bin/stylezero bin",
