@@ -1,0 +1,85 @@
+#!/usr/bin/env node
+
+var fs = require('fs'),
+    path = require('path');
+
+var yargs = require('yargs')
+  .usage('Usage: $0 -i input-dir/ -o output-dir/')
+  .option('input', {
+    alias: 'i',
+    string: true,
+    description: 'Directory with input lint files',
+    default: path.join(process.cwd(), 'dotfiles')
+  })
+  .option('output', {
+    alias: 'o',
+    string: true,
+    description: 'Directory to output final lint files',
+    default: path.join(process.cwd(), 'dist')
+  })
+  .option('help', {
+    alias: 'h',
+    boolean: true,
+    description: 'Displays this message'
+  });
+
+var argv = yargs.argv,
+    isComment = /^\s+\/\//,
+    inputDir = path.resolve(argv.input),
+    outputDir = path.resolve(argv.output),
+    config;
+
+if (argv.help) {
+  return yargs.showHelp();
+}
+
+//
+// ### function stripNull (obj, key)
+// Deletes the `key` from the `obj` if the
+// value is EXPLICITLY null.
+//
+function stripNull(obj, key) {
+  if (obj[key] == null) {
+    delete obj[key];
+    return;
+  }
+
+  if (!Array.isArray(obj[key]) && typeof obj[key] === 'object') {
+    Object.keys(obj[key]).forEach(stripNull.bind(null, obj[key]));
+    if (!Object.keys(obj[key]).length) {
+      delete obj[key];
+    }
+  }
+}
+
+function readAndStrip(file) {
+  console.log('Read dotfiles/%s', file);
+  return JSON.parse(
+    fs.readFileSync(path.join(inputDir, file), 'utf8')
+      .split('\n')
+      .filter(function (line) {
+        return !isComment.test(line) && line.replace(/\s/g, '');
+      })
+      .join('\n')
+  );
+}
+
+var files = {
+  jscsrc:   readAndStrip('.jscsrc'),
+  jshintrc: readAndStrip('.jshintrc')
+};
+
+console.log('Strip all `null` properties from .jscsrc');
+Object.keys(files.jscsrc).forEach(stripNull.bind(null, files.jscsrc));
+
+//
+// Now write them all out
+//
+Object.keys(files).forEach(function (file) {
+  console.log('Write to dist/%s', file);
+  fs.writeFileSync(
+    path.join(outputDir, '.' + file),
+    JSON.stringify(files[file], null, 2),
+    'utf8'
+  );
+});

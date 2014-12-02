@@ -1,0 +1,42 @@
+{
+  "name": "fashion-show",
+  "version": "0.0.0",
+  "description": "Automatically enforce and run consistent lint files across projects.",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "./node_modules/.bin/stylezero bin",
+    "test": "echo ok"
+  },
+  "bin": {
+    "fashion-show-build": "./bin/build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/indexzero/fashion-show"
+  },
+  "keywords": [
+    "jshint",
+    "jscs",
+    "lint",
+    "style",
+    "code-style",
+    "style-guide",
+    "javascript"
+  ],
+  "author": "Charlie Robbins <charlie.robbins@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/indexzero/fashion-show/issues"
+  },
+  "homepage": "https://github.com/indexzero/fashion-show",
+  "dependencies": {
+    "async": "~0.9.0",
+    "diagnostics": "0.0.4",
+    "jscs": "~1.8.1",
+    "jshint": "~2.5.10",
+    "yargs": "~1.3.3"
+  },
+  "devDependencies": {
+    "stylezero": "*"
+  }
+}
