@@ -7,7 +7,7 @@ var fs = require('fs'),
 var rootDir = path.join(__dirname),
     binDir  = path.join(rootDir, 'node_modules', '.bin');
 
-var fashionShow = module.exports = function (options) {
+var fashionShow = module.exports = function (options, callback) {
   var commands  = options.commands,
       targets   = options.targets,
       configDir = options.configDir;
@@ -27,10 +27,31 @@ var fashionShow = module.exports = function (options) {
         targets: targets
       });
     }),
-    function (err) {
+    function (err, exits) {
       if (err) {
-        console.dir(err)
+        console.dir(err);
+        return callback(err);
       }
+
+      var code = 0;
+      exits.forEach(function (args) {
+        var exit   = args[0],
+            signal = args[1];
+
+        //
+        // Set the "meta" error code to the first
+        // unsuccessful error code returned by `jscs`
+        // OR `jshint`.
+        //
+        if (!code) {
+          if (exit) { code = exit; }
+          else if (signal) {
+            code = 1;
+          }
+        }
+      });
+
+      callback(null, code);
     }
   );
 };
@@ -112,7 +133,9 @@ fashionShow.run = function (options, callback) {
 
       child.stdout.pipe(process.stdout);
       child.stderr.pipe(process.stderr);
-      callback(null, child);
+      child.on('exit', function (code, signal) {
+        callback(null, code, signal);
+      });
     }
   );
 };
