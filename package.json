@@ -32,11 +32,11 @@
   "dependencies": {
     "async": "~0.9.0",
     "diagnostics": "0.0.4",
-    "jscs": "~1.8.1",
-    "jshint": "~2.5.10",
-    "yargs": "~1.3.3"
+    "jscs": "~1.11.3",
+    "jshint": "~2.6.3",
+    "yargs": "~3.5.4"
   },
   "devDependencies": {
-    "stylezero": "~1.0.0"
+    "stylezero": "^2.0.0"
   }
 }
