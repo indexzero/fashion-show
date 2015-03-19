@@ -1,6 +1,6 @@
 {
   "name": "fashion-show",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Build consistent and versioned styleguides by including and running consistent lint files across projects.",
   "main": "index.js",
   "scripts": {
