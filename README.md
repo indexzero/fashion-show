@@ -77,42 +77,56 @@ require('fashion-show')(options, function (err, code) {
 
 The list of all available `options` is:
 
-| option name | jshint      | jscs       | eslint     |
-|:------------|:------------|:-----------|:-----------|
-| commands    | ---         | ---        | ---        |
-| targets     | ...args     | ...args    | ...args    |
-| dist        | --config    | --config   | --config   |
-| reporter    | --reporter  | --reporter | --reporter |
-| fix         | ---         | --fix      | ---        |
-| exts        | --extra-ext | ---        | --ext .js  |
-| global      | --prereq    | ---        | --global   |
-| tests       | ---         | ---        | ---        |
+| option name   | example              | jshint        | jscs         | eslint       |
+|:--------------|:---------------------|:--------------|:-------------|:-------------|
+| `commands`    | `['jscs', 'eslint']` | `---`         | `---`        | `---`        |
+| `targets`     | `['lib/', 'test/'`   | `...args`     | `...args`    | `...args`    |
+| `dist`        | `['../dist']`        | `--config`    | `--config`   | `--config`   |
+| `reporter`    | `'checkstyle'`       | `--reporter`  | `--reporter` | `--reporter` |
+| `fix`         | `true`               | `---`         | `--fix`      | `---`        |
+| `exts`        | `['.jsx']`           | `--extra-ext` | `---`        | `--ext .js`  |
+| `global`      | `['my-global']`      | `--prereq`    | `---`        | `--global`   |
+| `tests`       | `'mocha'`            | `---`         | `---`        | `---`        |
 
 ### `commands`
 
-Array of commands to actually run against. e.g.
+Array of commands to actually run against. Each item in the Array can be a string command or an object:
 
 ``` js
 {
-  commands: ['jscs', 'eslint']
+  'command': 'jscs',
+  'args': ['extra', 'jscs', 'specific', 'args']
 }
 ```
 
 ### `targets`
 
-The set of targets to run the given commands against
+The set of targets to run the given commands against. If any of these arguments match `/test/` then the [tests](#tests) options will also be included.
 
 ### `dist`
 
+Directory where all of your lint files is located. It will be default look for `.{command}rc`: `.jscsrc`, `.jshintrc`, `.eslintrc`
+
 ### `reporter`
+
+Reporter passed to the linters that you are running.
 
 ### `fix`
 
+If enabled will turn on [auto fixing in `jscs`](http://jscs.info/overview.html#cli) (Currently whitespace rules, EOF rule, and validateIndentation)
+
 ### `exts`
+
+Set of **additional** extensions that you want to include running lint(s) against.
 
 ### `global`
 
+Set of additional globals that you wish to enable
+
 ### `tests`
+
+Ensures that the additional globals required by your test framework are included in any [targets](#targets) which match `/test/`.
+
 
 
 ##### Author: [Charlie Robbins](charlie.robbins@gmail.com)
