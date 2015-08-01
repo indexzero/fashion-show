@@ -2,6 +2,10 @@
 
 Build consistent and versioned styleguides by including and running consistent lint files across projects.
 
+- [Motivation](#motivation)
+- [Writing your requireable styleguide](#writing-your-requireable-styleguide)
+- [API Documentation](#api-documentation)
+
 ## Motivation
 
 Your styleguide should be **verisoned** and **consistent** across all of your projects. This means that you should only have _ONE_ `.jshintrc` and/or `.jscsrc` file anywhere. But how can this be accomplished easily? By making your own styleguide using `fashion-show`.
@@ -35,6 +39,9 @@ var path = require('path');
 require('fashion-show')({
   configDir: path.join(__dirname, '..', 'dist'),
   targets: process.argv.splice(2)
+}, function (err, code) {
+  if (err) { return process.exit(1); }
+  process.exit(code);
 });
 ```
 - **6.** Expose that script as a "bin" in `your-styleguide`
@@ -56,6 +63,57 @@ npm install your-styleguide --save-dev
   "pretest": "./node_modules/.bin/your-styleguide lib test"
 }
 ```
+
+## API Documentation
+
+At its core `fashion-show` will run the CLI versions of the lint tools you choose to use it with. A [comparison of JavaScript lint CLI options](COMMANDS.md) is available if you're interested in exploring this in depth, but `fashion-show` has gone to length to pick the best tool for the job where applicable so when you run:
+
+``` js
+require('fashion-show')(options, function (err, code) {
+  if (err) { return process.exit(1); }
+  process.exit(code);
+});
+```
+
+The list of all available `options` is:
+
+| option name | jshint      | jscs       | eslint     |
+|:------------|:------------|:-----------|:-----------|
+| commands    | ---         | ---        | ---        |
+| targets     | ...args     | ...args    | ...args    |
+| dist        | --config    | --config   | --config   |
+| reporter    | --reporter  | --reporter | --reporter |
+| fix         | ---         | --fix      | ---        |
+| exts        | --extra-ext | ---        | --ext .js  |
+| global      | --prereq    | ---        | --global   |
+| tests       | ---         | ---        | ---        |
+
+### `commands`
+
+Array of commands to actually run against. e.g.
+
+``` js
+{
+  commands: ['jscs', 'eslint']
+}
+```
+
+### `targets`
+
+The set of targets to run the given commands against
+
+### `dist`
+
+### `reporter`
+
+### `fix`
+
+### `exts`
+
+### `global`
+
+### `tests`
+
 
 ##### Author: [Charlie Robbins](charlie.robbins@gmail.com)
 ##### License: MIT
