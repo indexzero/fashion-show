@@ -88,7 +88,7 @@ The list of all available `options` is:
 | `global`      | `['my-global']`      | `--prereq`    | `---`        | `--global`   |
 | `tests`       | `'mocha'`            | `---`         | `---`        | `---`        |
 
-### # `commands`
+#### # `commands`
 
 Array of commands to actually run against. Each item in the Array can be a string command or an object:
 
@@ -99,34 +99,41 @@ Array of commands to actually run against. Each item in the Array can be a strin
 }
 ```
 
-### # `targets`
+#### # `targets`
 
 The set of targets to run the given commands against. If any of these arguments match `/test/` then the [tests](#tests) options will also be included.
 
-### # `dist`
+#### # `dist`
 
 Directory where all of your lint files is located. It will be default look for `.{command}rc`: `.jscsrc`, `.jshintrc`, `.eslintrc`
 
-### # `reporter`
+#### # `reporter`
 
 Reporter passed to the linters that you are running.
 
-### # `fix`
+#### # `fix`
 
 If enabled will turn on [auto fixing in `jscs`](http://jscs.info/overview.html#cli) (Currently whitespace rules, EOF rule, and validateIndentation)
 
-### # `exts`
+#### # `exts`
 
 Set of **additional** extensions that you want to include running lint(s) against.
 
-### # `global`
+#### # `global`
 
 Set of additional globals that you wish to enable
 
-### # `tests`
+#### # `tests`
 
 Ensures that the additional globals required by your test framework are included in any [targets](#targets) which match `/test/`.
 
+## Tests
+
+Tests are written with `mocha` and code coverage is provided by `istanbul`:
+
+```
+npm test
+```
 
 ##### Author: [Charlie Robbins](charlie.robbins@gmail.com)
 ##### License: MIT
