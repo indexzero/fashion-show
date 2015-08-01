@@ -23,9 +23,9 @@ mkdir dotfiles
 touch dotfiles/.jshintrc
 touch dotfiles/.jscsrc
 ```
-- **3.** Install `fashion-show`
+- **3.** Install `fashion-show` and your favorite linters: `jscs`, `eslint` and `jshint` are supported.
 ```
-npm install fashion-show --save
+npm install fashion-show jscs eslint --save
 ```
 - **4.** "Build" your dotfiles on prepublish (i.e. remove comments)
 ``` js
@@ -36,9 +36,10 @@ npm install fashion-show --save
 - **5.** Write a simple wrapper script to "lint"
 ``` js
 var path = require('path');
+
 require('fashion-show')({
-  configDir: path.join(__dirname, '..', 'dist'),
-  targets: process.argv.splice(2)
+  commands: ['jscs', 'eslint'],
+  rc: path.join(__dirname, '..', 'dist')
 }, function (err, code) {
   if (err) { return process.exit(1); }
   process.exit(code);
@@ -60,7 +61,7 @@ npm install your-styleguide --save-dev
 - **8.** Use the bin you created on "pretest"
 ```
 "scripts": {
-  "pretest": "./node_modules/.bin/your-styleguide lib test"
+  "pretest": "your-styleguide lib test"
 }
 ```
 
@@ -80,13 +81,26 @@ The list of all available `options` is:
 | option name   | example              | jshint        | jscs         | eslint       |
 |:--------------|:---------------------|:--------------|:-------------|:-------------|
 | `commands`    | `['jscs', 'eslint']` | `---`         | `---`        | `---`        |
-| `targets`     | `['lib/', 'test/'`   | `...args`     | `...args`    | `...args`    |
-| `dist`        | `['../dist']`        | `--config`    | `--config`   | `--config`   |
-| `reporter`    | `'checkstyle'`       | `--reporter`  | `--reporter` | `--reporter` |
+| `targets`     | `['lib/', 'test/']`  | `...args`     | `...args`    | `...args`    |
+| `rc`          | `['../rc']`          | `--config`    | `--config`   | `--config`   |
+| `tests`       | `'mocha'`            | `---`         | `---`        | `---`        |
 | `fix`         | `true`               | `---`         | `--fix`      | `---`        |
 | `exts`        | `['.jsx']`           | `--extra-ext` | `---`        | `--ext .js`  |
+| `reporter`    | `'checkstyle'`       | `--reporter`  | `--reporter` | `--reporter` |
 | `global`      | `['my-global']`      | `--prereq`    | `---`        | `--global`   |
-| `tests`       | `'mocha'`            | `---`         | `---`        | `---`        |
+
+All of these options are also configurable through the binary scripts that you define in **Step 5** above:
+
+| CLI option      | option name   | Sample usage     |
+|:----------------|:--------------|:-----------------|
+| `...args`       | `targets`     | `lib/ test/`     |
+| `-c,--command`  | `commands`    | `--c jscs`       |
+| `-r,--rc`       | `rc`          | `--d ~/.lintrcs` |
+| `-t,--tests`    | `tests`       | `--t mocha`      |
+| `-f,--fix`      | `fix`         | `--fix`          |
+| `-e,--ext`      | `exts`        | `--ext .jsx`     |
+| `-r,--reporter` | `reporter`    | `--r checkstyle` |
+| `-g,--global`   | `global`      | `--g my-global`  |
 
 #### # `commands`
 
@@ -107,6 +121,10 @@ The set of targets to run the given commands against. If any of these arguments 
 
 Directory where all of your lint files is located. It will be default look for `.{command}rc`: `.jscsrc`, `.jshintrc`, `.eslintrc`
 
+#### # `tests`
+
+Ensures that the additional globals required by your test framework are included in any [targets](#targets) which match `/test/`.
+
 #### # `reporter`
 
 Reporter passed to the linters that you are running.
@@ -123,9 +141,6 @@ Set of **additional** extensions that you want to include running lint(s) agains
 
 Set of additional globals that you wish to enable
 
-#### # `tests`
-
-Ensures that the additional globals required by your test framework are included in any [targets](#targets) which match `/test/`.
 
 ## Tests
 
