@@ -83,7 +83,6 @@ The list of all available `options` is:
 | `commands`    | `['jscs', 'eslint']` | `---`         | `---`        | `---`        |
 | `targets`     | `['lib/', 'test/']`  | `...args`     | `...args`    | `...args`    |
 | `rc`          | `['../rc']`          | `--config`    | `--config`   | `--config`   |
-| `tests`       | `'mocha'`            | `---`         | `---`        | `---`        |
 | `fix`         | `true`               | `---`         | `--fix`      | `---`        |
 | `exts`        | `['.jsx']`           | `--extra-ext` | `---`        | `--ext .js`  |
 | `reporter`    | `'checkstyle'`       | `--reporter`  | `--reporter` | `--reporter` |
@@ -96,7 +95,6 @@ All of these options are also configurable through the binary scripts that you d
 | `...args`       | `targets`     | `lib/ test/`     |
 | `-c,--command`  | `commands`    | `--c jscs`       |
 | `-r,--rc`       | `rc`          | `--d ~/.lintrcs` |
-| `-t,--tests`    | `tests`       | `--t mocha`      |
 | `-f,--fix`      | `fix`         | `--fix`          |
 | `-e,--ext`      | `exts`        | `--ext .jsx`     |
 | `-r,--reporter` | `reporter`    | `--r checkstyle` |
@@ -115,15 +113,11 @@ Array of commands to actually run against. Each item in the Array can be a strin
 
 #### # `targets`
 
-The set of targets to run the given commands against. If any of these arguments match `/test/` then the [tests](#tests) options will also be included.
+The set of targets to run the given commands against.
 
 #### # `dist`
 
 Directory where all of your lint files is located. It will be default look for `.{command}rc`: `.jscsrc`, `.jshintrc`, `.eslintrc`
-
-#### # `tests`
-
-Ensures that the additional globals required by your test framework are included in any [targets](#targets) which match `/test/`.
 
 #### # `reporter`
 
