@@ -37,6 +37,7 @@
     "yargs": "~3.5.4"
   },
   "devDependencies": {
+    "assume": "^1.2.6",
     "eslint": "^1.0.0",
     "istanbul": "^0.3.17",
     "jscs": "^2.0.0",

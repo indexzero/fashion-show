@@ -11,11 +11,15 @@ var fashionShow = module.exports = function (defaults, callback) {
   var options = defaultify(defaults),
       commands = options.commands;
 
-  async.series(
+  debug('env.$PATH', process.env.PATH);
+  async.parallel(
     commands.map(function (command) {
+      debug('run.invoke { command: %s }', command);
       return async.apply(run, command, options);
     }),
     function (err, exits) {
+      debug('run.finish { err: %s, exits: %j }', err, exits);
+
       if (err) {
         console.dir(err);
         return callback(err);
