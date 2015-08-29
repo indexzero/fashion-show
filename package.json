@@ -4,8 +4,7 @@
   "description": "Build consistent and versioned styleguides by including and running consistent lint files across projects.",
   "main": "index.js",
   "scripts": {
-    "pretest": "./node_modules/.bin/stylezero bin",
-    "test": "echo ok"
+    "test": "istanbul cover ./node_modules/.bin/_mocha test/unit"
   },
   "bin": {
     "fashion-show-build": "./bin/build"
@@ -43,7 +42,6 @@
     "jscs": "^2.0.0",
     "jshint": "^2.8.0",
     "mocha": "^2.2.5",
-    "mocha-istanbul": "^0.2.0",
-    "stylezero": "^2.0.0"
+    "mocha-istanbul": "^0.2.0"
   }
 }

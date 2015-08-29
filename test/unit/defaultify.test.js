@@ -5,7 +5,12 @@ var assume = require('assume'),
 
 describe('defaultify (unit)', function () {
   it('should have expected defaults', function () {
+    var oldArgv = process.argv;
+    process.argv = null;
+
     var defaults = defaultify();
+    process.argv = oldArgv;
+
     assume(defaults.commands).deep.equals(['jscs', 'eslint']);
     assume(defaults.targets).deep.equals(['test/unit/defaultify.test.js']);
     assume(defaults.rc).equals(undefined);
