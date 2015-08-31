@@ -4,7 +4,7 @@
   "description": "Build consistent and versioned styleguides by including and running consistent lint files across projects.",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover ./node_modules/.bin/_mocha test/unit"
+    "test": "istanbul cover ./node_modules/.bin/_mocha test/"
   },
   "bin": {
     "fashion-show-build": "./bin/build"
@@ -44,6 +44,7 @@
     "mocha": "^2.2.5",
     "mocha-istanbul": "^0.2.0",
     "proxyquire": "^1.7.1",
-    "std-mocks": "^1.0.0"
+    "std-mocks": "^1.0.0",
+    "strip-ansi": "^3.0.0"
   }
 }
