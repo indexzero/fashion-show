@@ -4,8 +4,7 @@
   "description": "Build consistent and versioned styleguides by including and running consistent lint files across projects.",
   "main": "index.js",
   "scripts": {
-    "pretest": "./node_modules/.bin/stylezero bin",
-    "test": "echo ok"
+    "test": "istanbul cover ./node_modules/.bin/_mocha test/"
   },
   "bin": {
     "fashion-show-build": "./bin/build"
@@ -31,12 +30,21 @@
   "homepage": "https://github.com/indexzero/fashion-show",
   "dependencies": {
     "async": "~0.9.0",
+    "chalk": "^1.1.0",
     "diagnostics": "0.0.4",
-    "jscs": "~1.11.3",
-    "jshint": "~2.6.3",
+    "minimist": "^1.1.2",
     "yargs": "~3.5.4"
   },
   "devDependencies": {
-    "stylezero": "^2.0.0"
+    "assume": "^1.2.6",
+    "eslint": "^1.0.0",
+    "istanbul": "^0.3.17",
+    "jscs": "^2.0.0",
+    "jshint": "^2.8.0",
+    "mocha": "^2.2.5",
+    "mocha-istanbul": "^0.2.0",
+    "proxyquire": "^1.7.1",
+    "std-mocks": "^1.0.0",
+    "strip-ansi": "^3.0.0"
   }
 }
