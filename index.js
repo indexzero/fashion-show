@@ -1,4 +1,5 @@
-var fs = require('fs'),
+var os = require('os'),
+    fs = require('fs'),
     path = require('path'),
     spawn = require('child_process').spawn,
     async = require('async'),
@@ -121,6 +122,15 @@ fashionShow.run = function (options, callback) {
         //
         options: { cwd: process.cwd() }
       };
+
+      // If there's no file extension under Windows, look for a .bat or .cmd equivalent
+      if (/^win/i.test(os.platform()) && !/[\\/][^\\/]*\.[^\\/]+$/.test(absolute.command)) {
+        if (fs.existsSync(absolute.command + '.cmd')) {
+          absolute.command += '.cmd';
+        } else if (fs.existsSync(absolute.command + '.bat')) {
+          absolute.command += '.bat';
+        }
+      }
 
       Object.keys(absolute).forEach(function (key) {
         debug(key, absolute[key]);
