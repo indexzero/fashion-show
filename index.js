@@ -124,9 +124,7 @@ fashionShow.run = function (options, callback) {
       };
 
       // If there's no file extension under Windows, look for a .bat or .cmd equivalent
-      console.log(absolute.command);
       if (/^win/i.test(os.platform()) && !/[\\/][^\\/]*\.[^\\/]+$/.test(absolute.command)) {
-        console.log('Has no extension');
         if (fs.existsSync(absolute.command + '.cmd')) {
           absolute.command += '.cmd';
         } else if (fs.existsSync(absolute.command + '.bat')) {
