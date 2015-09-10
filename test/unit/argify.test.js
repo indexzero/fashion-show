@@ -13,7 +13,7 @@ function assumeSharedOptions(command) {
   return function () {
     it('{ reporter }', function () {
       var mixin = argify[command]({ reporter: 'spec' });
-      assume(mixin).deep.equals(['--reporter spec']);
+      assume(mixin).deep.equals(['--reporter=spec']);
     });
 
     it ('{} (no args)', function () {
@@ -47,7 +47,7 @@ describe('argify (unit)', function () {
       assume(args).deep.equal([
         '-c', '/path/to/rcfile/.jscsrc',
         '--fix',
-        '--reporter spec',
+        '--reporter=spec',
         'lib/', 'test/*.js'
       ]);
     });
@@ -61,9 +61,26 @@ describe('argify (unit)', function () {
 
       assume(args).deep.equal([
         '-c', '/path/to/rcfile/.eslintrc',
-        '--reporter spec',
+        '--format=spec',
         'lib/', 'test/*.js'
       ]);
+
+      it('{ reporter }', function () {
+        var mixin = argify[command]({ reporter: 'spec' });
+        assume(mixin).deep.equals(['--format=spec']);
+      });
+
+      it('{ format }', function () {
+        var mixin = argify[command]({ format: 'spec' });
+        assume(mixin).deep.equals(['--format=spec']);
+      });
+
+
+      it ('{} (no args)', function () {
+        var mixin = argify[command]({});
+        assume(mixin).deep.equals([]);
+      });
+
     });
 
     it('jshint { rc, reporter, targets }', function () {
@@ -75,7 +92,7 @@ describe('argify (unit)', function () {
 
       assume(args).deep.equal([
         '-c', '/path/to/rcfile/.jshintrc',
-        '--reporter spec',
+        '--reporter=spec',
         'lib/', 'test/*.js'
       ]);
     });
@@ -92,7 +109,7 @@ describe('argify (unit)', function () {
   describe('jscs', function () {
     it('{ reporter, fix }', function () {
       var mixin = argify.jscs({ fix: true, reporter: 'spec' });
-      assume(mixin).deep.equals(['--fix', '--reporter spec']);
+      assume(mixin).deep.equals(['--fix', '--reporter=spec']);
     });
 
     it('{ fix }', function () {
@@ -103,7 +120,6 @@ describe('argify (unit)', function () {
 
   describe('shared options', function () {
     describe('jscs', assumeSharedOptions('jscs'));
-    describe('eslint', assumeSharedOptions('eslint'));
     describe('jshint', assumeSharedOptions('jshint'));
   });
 });

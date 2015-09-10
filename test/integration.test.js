@@ -57,7 +57,7 @@ function expectedOutput(linter) {
   return [
     'Running ' + linter + ' with options:',
     '-c test/fixtures/.' + linter + 'rc',
-    'lib/'
+    'lib'
   ].join(' ');
 }
 
