@@ -15,13 +15,16 @@ Your styleguide should be **verisoned** and **consistent** across all of your pr
 **A fully working example at [indexzero/styleguide](https://github.com/indexzero/styleguide).** Basically it happens in a few steps:
 
 - **1.** Make a new repository, `your-styleguide`
-- **2.** Add your `.jshintrc` and `.jscsrc` files:
+- **2.** Add your `.elintrc` and `.jscsrc` files:
 ```
 cd your-styleguide
 mkdir dist
 mkdir dotfiles
-touch dotfiles/.jshintrc
+touch dotfiles/.eslintrc
 touch dotfiles/.jscsrc
+
+# Also works with jshint
+# touch dotfiles/.jshintrc
 ```
 - **3.** Install `fashion-show` and your favorite linters: `jscs`, `eslint` and `jshint` are supported.
 ```
