@@ -66,7 +66,8 @@ function readAndStrip(file) {
 
 var files = {
   jscsrc:   readAndStrip('.jscsrc'),
-  jshintrc: readAndStrip('.jshintrc')
+  jshintrc: readAndStrip('.jshintrc'),
+  eslintrc: readAndStrip('.eslintrc')
 };
 
 console.log('Strip all `null` properties from .jscsrc');
