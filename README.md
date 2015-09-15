@@ -85,23 +85,25 @@ The list of all available `options` is:
 |:--------------|:---------------------|:--------------|:-------------|:-------------|
 | `commands`    | `['jscs', 'eslint']` | `---`         | `---`        | `---`        |
 | `targets`     | `['lib/', 'test/']`  | `...args`     | `...args`    | `...args`    |
-| `rc`          | `['../rc']`          | `--config`    | `--config`   | `--config`   |
+| `rc`          | `'../rc'`            | `--config`    | `--config`   | `--config`   |
 | `fix`         | `true`               | `---`         | `--fix`      | `---`        |
 | `exts`        | `['.jsx']`           | `--extra-ext` | `---`        | `--ext .js`  |
-| `reporter`    | `'checkstyle'`       | `--reporter`  | `--reporter` | `--reporter` |
+| `reporter`    | `'checkstyle'`       | `--reporter`  | `--reporter` | `--format`   |
+| `format`      | `'checkstyle'`       | `---`         | `---`        | `--format`   |
 | `global`      | `['my-global']`      | `--prereq`    | `---`        | `--global`   |
+| `binPath`     | `node_modules/.bin`  | `---`         | `---`        | `---`        |
 
 All of these options are also configurable through the binary scripts that you define in **Step 5** above:
 
 | CLI option      | option name   | Sample usage     |
 |:----------------|:--------------|:-----------------|
 | `...args`       | `targets`     | `lib/ test/`     |
-| `-c,--command`  | `commands`    | `--c jscs`       |
-| `-r,--rc`       | `rc`          | `--d ~/.lintrcs` |
+| `-c,--command`  | `commands`    | `-c jscs`        |
+| `-r,--rc`       | `rc`          | `-d ~/.lintrcs`  |
 | `-f,--fix`      | `fix`         | `--fix`          |
 | `-e,--ext`      | `exts`        | `--ext .jsx`     |
-| `-r,--reporter` | `reporter`    | `--r checkstyle` |
-| `-g,--global`   | `global`      | `--g my-global`  |
+| `-r,--reporter` | `reporter`    | `-r checkstyle`  |
+| `-g,--global`   | `global`      | `-g my-global`   |
 
 #### # `commands`
 
