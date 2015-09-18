@@ -70,7 +70,7 @@ npm install your-styleguide --save-dev
 
 ## API Documentation
 
-At its core `fashion-show` will run the CLI versions of the lint tools you choose to use it with. A [comparison of JavaScript lint CLI options](COMMANDS.md) is available if you're interested in exploring this in depth, but `fashion-show` has gone to length to pick the best tool for the job where applicable so when you run:
+At its core `fashion-show` will run the CLI versions of the lint tools you choose to use it with. A [comparison of JavaScript lint CLI options](https://github.com/indexzero/js-lint-compat/blob/master/CLI-OPTIONS.md) is available if you're interested in exploring this in depth, but `fashion-show` has gone to length to pick the best tool for the job where applicable so when you run:
 
 ``` js
 require('fashion-show')(options, function (err, code) {
