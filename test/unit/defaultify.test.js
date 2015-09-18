@@ -17,7 +17,7 @@ describe('defaultify (unit)', function () {
     assume(defaults.fix).equals(undefined);
     assume(defaults.reporter).equals(undefined);
     assume(defaults.global).equals(undefined);
-    assume(defaults.exts).deep.equals(['.js']);
+    assume(defaults.exts).deep.equals([]);
   });
 
   it('--rc');
