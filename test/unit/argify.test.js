@@ -12,7 +12,7 @@ var assume = require('assume'),
 function assumeSharedOptions(command) {
   return function () {
     it('{ reporter }', function () {
-      var mixin = argify[command]({ reporter: 'spec', exts: [] });
+      var mixin = argify[command]({ reporter: 'spec' });
       assume(mixin).deep.equals(['--reporter=spec']);
     });
 
@@ -56,8 +56,7 @@ describe('argify (unit)', function () {
       var args = argify('eslint', {
         rc: '/path/to/rcfile',
         reporter: 'spec',
-        targets: ['lib/', 'test/*.js'],
-        exts: []
+        targets: ['lib/', 'test/*.js']
       });
 
       assume(args).deep.equal([
@@ -88,8 +87,7 @@ describe('argify (unit)', function () {
       var args = argify('jshint', {
         rc: '/path/to/rcfile',
         reporter: 'spec',
-        targets: ['lib/', 'test/*.js'],
-        exts: []
+        targets: ['lib/', 'test/*.js']
       });
 
       assume(args).deep.equal([
