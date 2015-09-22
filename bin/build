@@ -53,15 +53,23 @@ function stripNull(obj, key) {
 }
 
 function readAndStrip(file) {
+  var filtered;
+
+  try {
+    filtered = JSON.parse(
+      fs.readFileSync(path.join(inputDir, file), 'utf8')
+        .split('\n')
+        .filter(function (line) {
+          return !isComment.test(line) && line.replace(/\s/g, '');
+        })
+        .join('\n')
+    );
+  } catch (ex) {
+    return null;
+  }
+
   console.log('Read dotfiles/%s', file);
-  return JSON.parse(
-    fs.readFileSync(path.join(inputDir, file), 'utf8')
-      .split('\n')
-      .filter(function (line) {
-        return !isComment.test(line) && line.replace(/\s/g, '');
-      })
-      .join('\n')
-  );
+  return filtered;
 }
 
 var files = {
@@ -77,6 +85,8 @@ Object.keys(files.jscsrc).forEach(stripNull.bind(null, files.jscsrc));
 // Now write them all out
 //
 Object.keys(files).forEach(function (file) {
+  if (!files[file]) { return; }
+
   console.log('Write to dist/%s', file);
   fs.writeFileSync(
     path.join(outputDir, '.' + file),
