@@ -1,10 +1,17 @@
 #!/usr/bin/env node
 
 var fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    util = require('util');
 
 var yargs = require('yargs')
   .usage('Usage: $0 -i input-dir/ -o output-dir/')
+  .option('pretty', {
+    alias: 'p',
+    boolean: true,
+    description: 'Stringifies individual keys instead of the entire file.',
+    default: false
+  })
   .option('input', {
     alias: 'i',
     string: true,
@@ -52,6 +59,11 @@ function stripNull(obj, key) {
   }
 }
 
+//
+// ### function readAndStrip(file)
+// Reads a file specified and strips out any
+// comments that exist in it.
+//
 function readAndStrip(file) {
   var filtered;
 
@@ -72,6 +84,58 @@ function readAndStrip(file) {
   return filtered;
 }
 
+//
+// ### function isObject
+// Silly isObject check
+//
+function isObject(o) {
+  var ptype = Object.prototype.toString
+    .call(o)
+    .slice(8,14)
+    .toLowerCase();
+
+  return ptype === 'object';
+}
+
+//
+// ### function nestedStringify(obj)
+// Does a nested stringify of things
+//
+function nestedStringify(obj) {
+  if (!isObject(obj)) {
+    return JSON.stringify(obj);
+  }
+
+  return Object.keys(obj).reduce(function (acc, key, i, arr) {
+    acc += util.format('\n    "%s": %s', key, JSON.stringify(obj[key]));
+    if (i !== arr.length - 1) {
+      acc += ',';
+    }
+
+    return acc;
+  }, '{') + '\n  }';
+}
+
+//
+// ### function stringify(obj)
+// Optionally stringifies each key individually of the
+// obj or the entire obj.
+//
+function stringify(obj) {
+  if (!argv.pretty) {
+    return JSON.stringify(obj, null, 2);
+  }
+
+  return Object.keys(obj).reduce(function (acc, key, i, arr) {
+    acc += util.format('\n  "%s": %s', key, nestedStringify(obj[key]));
+    if (i !== arr.length - 1) {
+      acc += ',';
+    }
+
+    return acc;
+  }, '{') + '\n}';
+}
+
 var files = {
   jscsrc:   readAndStrip('.jscsrc'),
   jshintrc: readAndStrip('.jshintrc'),
@@ -90,7 +154,7 @@ Object.keys(files).forEach(function (file) {
   console.log('Write to dist/%s', file);
   fs.writeFileSync(
     path.join(outputDir, '.' + file),
-    JSON.stringify(files[file], null, 2),
+    stringify(files[file]),
     'utf8'
   );
 });
