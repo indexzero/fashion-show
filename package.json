@@ -1,7 +1,7 @@
 {
   "name": "fashion-show",
-  "version": "3.3.2",
   "description": "Build consistent and versioned styleguides by including and running consistent lint files across projects.",
+  "version": "3.3.2",
   "main": "index.js",
   "scripts": {
     "test": "istanbul cover ./node_modules/.bin/_mocha test/"
